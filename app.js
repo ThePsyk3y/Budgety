@@ -29,16 +29,28 @@ const UIController = (function UI() {
 
 // *App Controller
 const controller = (function ctrl(budgetCtrl, UICtrl) {
-  const ctrlClassID = UICtrl.getClassID();
   const ctrlAddItem = function add() {
     const input = UICtrl.getInput();
     console.log(input);
   };
 
-  document.querySelector(ctrlClassID.btnID).addEventListener('click', ctrlAddItem);
-  document.addEventListener('keypress', (event) => {
-    if (event.keyCode === 13 || event.which === 13) {
-      ctrlAddItem();
-    }
-  });
+  const setupEventListeners = function eventList() {
+    const ctrlClassID = UICtrl.getClassID();
+
+    document.querySelector(ctrlClassID.btnID).addEventListener('click', ctrlAddItem);
+    document.addEventListener('keypress', (event) => {
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  };
+
+  return {
+    init() {
+      console.log('Application has started');
+      setupEventListeners();
+    },
+  };
 }(budgetController, UIController));
+
+controller.init();

@@ -82,10 +82,10 @@ const UIController = (function UI() {
 
       if (type === 'inc') {
         element = UIclassID.incomeCont;
-        html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">&#8377;%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       } else if (type === 'exp') {
         element = UIclassID.expenseCont;
-        html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">%percentage%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">&#8377;%value%</div><div class="item__percentage">%percentage%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
 
       // Replace placeholder text with some actual data
@@ -95,6 +95,17 @@ const UIController = (function UI() {
 
       // Insert the HTML into DOM
       document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+    },
+
+    clearFields() {
+      const fields = document.querySelectorAll(`${UIclassID.descID}, ${UIclassID.valID}`);
+      const fieldsArr = Array.prototype.slice.call(fields);
+
+      fieldsArr.forEach((current, index, array) => {
+        current.value = '';
+      });
+
+      fieldsArr[0].focus();
     },
 
     getClassID() {
@@ -115,6 +126,10 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
     // *Add item to UI
     UICtrl.addListItem(newItem, input.type);
     console.log(newItem);
+
+    // *Clear Input fields
+    UICtrl.clearFields();
+
     // *Calculate the budget
 
     // *Update the budget

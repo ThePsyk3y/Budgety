@@ -85,7 +85,7 @@ const UIController = (function UI() {
         html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       } else if (type === 'exp') {
         element = UIclassID.expenseCont;
-        html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">%percentage%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
 
       // Replace placeholder text with some actual data
@@ -108,10 +108,16 @@ const UIController = (function UI() {
 // ?App Controller
 const controller = (function ctrl(budgetCtrl, UICtrl) {
   const ctrlAddItem = function add() {
+    // *Get input data
     const input = UICtrl.getInput();
+    // *Add new item to budget controller
     const newItem = budgetCtrl.addItem(input.type, input.desc, input.val);
+    // *Add item to UI
     UICtrl.addListItem(newItem, input.type);
     console.log(newItem);
+    // *Calculate the budget
+
+    // *Update the budget
   };
 
   const setupEventListeners = function eventList() {

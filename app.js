@@ -154,7 +154,11 @@ const UIController = (function UI() {
       } else {
         document.querySelector(UIclassID.expenseID).textContent = `- ${obj.totalexp}.00`;
       }
-      document.querySelector(UIclassID.percID).textContent = `${obj.percentage}%`;
+      if (obj.percentage > 0) {
+        document.querySelector(UIclassID.percID).textContent = `${obj.percentage}%`;
+      } else {
+        document.querySelector(UIclassID.percID).textContent = '---';
+      }
     },
 
     getClassID() {

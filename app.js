@@ -143,7 +143,11 @@ const UIController = (function UI() {
       fieldsArr[0].focus();
     },
     displayBudget(obj) {
-      document.querySelector(UIclassID.budgetID).textContent = obj.budget;
+      if (obj.budget % 1 !== 0) {
+        document.querySelector(UIclassID.budgetID).textContent = `${obj.budget}`;
+      } else {
+        document.querySelector(UIclassID.budgetID).textContent = `${obj.budget}.00`;
+      }
       if (obj.totalinc % 1 !== 0) {
         document.querySelector(UIclassID.incomeID).textContent = `+ ${obj.totalinc}`;
       } else {
@@ -215,6 +219,12 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
   return {
     init() {
       console.log('Application has started');
+      UICtrl.displayBudget({
+        budget: 0,
+        percentage: -1,
+        totalinc: 0,
+        totalexp: 0,
+      });
       setupEventListeners();
     },
   };

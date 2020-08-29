@@ -139,7 +139,13 @@ const UIController = (function UI() {
       newHtml = newHtml.replace('%value%', obj.value);
 
       // Insert the HTML into DOM
-      document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+      document
+        .querySelector(element)
+        .insertAdjacentHTML('beforeend', newHtml);
+    },
+    deleteListItem(selectorID) {
+      const ele = document.getElementById(selectorID);
+      ele.parentNode.removeChild(ele);
     },
 
     clearFields() {
@@ -154,24 +160,40 @@ const UIController = (function UI() {
     },
     displayBudget(obj) {
       if (obj.budget % 1 !== 0) {
-        document.querySelector(UIclassID.budgetID).textContent = `${obj.budget}`;
+        document
+          .querySelector(UIclassID.budgetID)
+          .textContent = `${obj.budget}`;
       } else {
-        document.querySelector(UIclassID.budgetID).textContent = `${obj.budget}.00`;
+        document
+          .querySelector(UIclassID.budgetID)
+          .textContent = `${obj.budget}.00`;
       }
       if (obj.totalinc % 1 !== 0) {
-        document.querySelector(UIclassID.incomeID).textContent = `+ ${obj.totalinc}`;
+        document
+          .querySelector(UIclassID.incomeID)
+          .textContent = `+ ${obj.totalinc}`;
       } else {
-        document.querySelector(UIclassID.incomeID).textContent = `+ ${obj.totalinc}.00`;
+        document
+          .querySelector(UIclassID.incomeID)
+          .textContent = `+ ${obj.totalinc}.00`;
       }
       if (obj.totalexp % 1 !== 0) {
-        document.querySelector(UIclassID.expenseID).textContent = `- ${obj.totalexp}`;
+        document
+          .querySelector(UIclassID.expenseID)
+          .textContent = `- ${obj.totalexp}`;
       } else {
-        document.querySelector(UIclassID.expenseID).textContent = `- ${obj.totalexp}.00`;
+        document
+          .querySelector(UIclassID.expenseID)
+          .textContent = `- ${obj.totalexp}.00`;
       }
       if (obj.percentage > 0) {
-        document.querySelector(UIclassID.percID).textContent = `${obj.percentage}%`;
+        document
+          .querySelector(UIclassID.percID)
+          .textContent = `${obj.percentage}%`;
       } else {
-        document.querySelector(UIclassID.percID).textContent = '---';
+        document
+          .querySelector(UIclassID.percID)
+          .textContent = '---';
       }
     },
 
@@ -222,6 +244,7 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
       // *Delete Item from data structure
       budgetCtrl.delItem(type, ID);
       // *Delete item from UI
+      UICtrl.deleteListItem(itemID);
       // *Update and show new budget
       updateBudget();
     }
@@ -238,7 +261,9 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
         ctrlAddItem();
       }
     });
-    document.querySelector(ctrlClassID.container).addEventListener('click', ctrlDeleteItem);
+    document
+      .querySelector(ctrlClassID.container)
+      .addEventListener('click', ctrlDeleteItem);
   };
 
   return {

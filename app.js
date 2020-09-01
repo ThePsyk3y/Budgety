@@ -1,7 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 // ?Budget Controller
 const budgetController = (function budget() {
   const Expense = function expenseConst(id, desc, value) {

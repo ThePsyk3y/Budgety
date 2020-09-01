@@ -140,6 +140,7 @@ const UIController = (function UI() {
     expenseID: '.budget__expenses--value',
     percID: '.budget__expenses--percentage',
     container: '.container',
+    monthID: '.budget__title--month',
   };
 
   const formatNumber = function formNum(num, type) {
@@ -153,7 +154,7 @@ const UIController = (function UI() {
     const dec = numSplit[1];
 
     if (int.length > 3) {
-      int = `${int.substr(0, int.length - 3)}, ${int.substr(int.length - 3, 3)}`;
+      int = `${int.substr(0, int.length - 3)},${int.substr(int.length - 3, 3)}`;
     }
 
     if (type === 'inc') {
@@ -256,6 +257,17 @@ const UIController = (function UI() {
       });
     },
 
+    displayMonth() {
+      const now = new Date();
+
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      const curmonth = months[now.getMonth()];
+      const curYear = now.getFullYear();
+
+      document.querySelector(UIclassID.monthID).textContent = `${curmonth}, ${curYear}`;
+    },
+
     getClassID() {
       return UIclassID;
     },
@@ -348,6 +360,7 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
   return {
     init() {
       console.log('Application has started');
+      UICtrl.displayMonth();
       UICtrl.displayBudget({
         budget: 0,
         percentage: -1,

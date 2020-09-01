@@ -165,6 +165,12 @@ const UIController = (function UI() {
     return num;
   };
 
+  const nodeListForEach = function nodeFor(list, callback) {
+    for (let i = 0; i < list.length; i++) {
+      callback(list[i], i);
+    }
+  };
+
   return {
     getInput() {
       return {
@@ -242,12 +248,6 @@ const UIController = (function UI() {
     displayPercentage(percentages) {
       const fields = document.querySelectorAll(UIclassID.percentListID);
 
-      const nodeListForEach = function nodeFor(list, callback) {
-        for (let i = 0; i < list.length; i++) {
-          callback(list[i], i);
-        }
-      };
-
       nodeListForEach(fields, (current, index) => {
         if (percentages[index] > 0) {
           current.textContent = `${percentages[index]}%`;
@@ -266,6 +266,14 @@ const UIController = (function UI() {
       const curYear = now.getFullYear();
 
       document.querySelector(UIclassID.monthID).textContent = `${curmonth}, ${curYear}`;
+    },
+
+    changedType() {
+      const fields = document.querySelectorAll(`${UIclassID.typeID},${UIclassID.descID},${UIclassID.valID}`);
+      nodeListForEach(fields, (current) => {
+        current.classList.toggle('red-focus');
+      });
+      document.querySelector(UIclassID.btnID).classList.toggle('red');
     },
 
     getClassID() {
@@ -355,6 +363,7 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
     document
       .querySelector(ctrlClassID.container)
       .addEventListener('click', ctrlDeleteItem);
+    document.querySelector(ctrlClassID.typeID).addEventListener('change', UICtrl.changedType);
   };
 
   return {

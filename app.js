@@ -120,7 +120,7 @@ const budgetController = (function budget() {
       console.log(budgetData);
     },
   };
-}());
+})();
 
 // !------------------------------------------------------------------------------------------------
 
@@ -188,10 +188,12 @@ const UIController = (function UI() {
 
       if (type === 'inc') {
         element = UIclassID.incomeCont;
-        html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html =
+          '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       } else if (type === 'exp') {
         element = UIclassID.expenseCont;
-        html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">25%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html =
+          '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">25%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
 
       // Replace placeholder text with some actual data
@@ -200,9 +202,7 @@ const UIController = (function UI() {
       newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
 
       // Insert the HTML into DOM
-      document
-        .querySelector(element)
-        .insertAdjacentHTML('beforeend', newHtml);
+      document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
     },
 
     deleteListItem(selectorID) {
@@ -223,25 +223,15 @@ const UIController = (function UI() {
 
     displayBudget(obj) {
       let type;
-      obj.budget >= 0 ? type = 'inc' : type = 'exp';
+      obj.budget >= 0 ? (type = 'inc') : (type = 'exp');
 
-      document
-        .querySelector(UIclassID.budgetID)
-        .textContent = formatNumber(obj.budget, type);
-      document
-        .querySelector(UIclassID.incomeID)
-        .textContent = formatNumber(obj.totalinc, 'inc');
-      document
-        .querySelector(UIclassID.expenseID)
-        .textContent = formatNumber(obj.totalexp, 'exp');
+      document.querySelector(UIclassID.budgetID).textContent = formatNumber(obj.budget, type);
+      document.querySelector(UIclassID.incomeID).textContent = formatNumber(obj.totalinc, 'inc');
+      document.querySelector(UIclassID.expenseID).textContent = formatNumber(obj.totalexp, 'exp');
       if (obj.percentage > 0) {
-        document
-          .querySelector(UIclassID.percID)
-          .textContent = `${obj.percentage}%`;
+        document.querySelector(UIclassID.percID).textContent = `${obj.percentage}%`;
       } else {
-        document
-          .querySelector(UIclassID.percID)
-          .textContent = '---';
+        document.querySelector(UIclassID.percID).textContent = '---';
       }
     },
 
@@ -280,7 +270,7 @@ const UIController = (function UI() {
       return UIclassID;
     },
   };
-}());
+})();
 
 // !------------------------------------------------------------------------------------------------
 
@@ -352,17 +342,13 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
   const setupEventListeners = function eventList() {
     const ctrlClassID = UICtrl.getClassID();
 
-    document
-      .querySelector(ctrlClassID.btnID)
-      .addEventListener('click', ctrlAddItem);
+    document.querySelector(ctrlClassID.btnID).addEventListener('click', ctrlAddItem);
     document.addEventListener('keypress', (event) => {
       if (event.keyCode === 13 || event.which === 13) {
         ctrlAddItem();
       }
     });
-    document
-      .querySelector(ctrlClassID.container)
-      .addEventListener('click', ctrlDeleteItem);
+    document.querySelector(ctrlClassID.container).addEventListener('click', ctrlDeleteItem);
     document.querySelector(ctrlClassID.typeID).addEventListener('change', UICtrl.changedType);
   };
 
@@ -379,6 +365,6 @@ const controller = (function ctrl(budgetCtrl, UICtrl) {
       setupEventListeners();
     },
   };
-}(budgetController, UIController));
+})(budgetController, UIController);
 
 controller.init();
